@@ -19,8 +19,8 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
-module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, sigmoidSize=10, weightIntWidth=4, actType="relu", biasFile="", weightFile="")(
+`include "include.v"
+module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, sigmoidSize=5, weightIntWidth=4, actType="sigmoid", biasFile="b_1_15.mif", weightFile="w_1_15.mif")(
     input clk,
     input rst,
     input [dataWidth-1:0] myinput,
@@ -43,12 +43,13 @@ module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, si
     reg [addressWidth:0] r_addr;
 
     reg [dataWidth-1:0] win;
-    reg [dataWidth-1:0] wout;
+    wire [dataWidth-1:0] wout;
     reg [dataWidth-1:0] myinputdelay;
 
     reg [2*dataWidth-1:0] mul;
     reg [2*dataWidth-1:0] sum;
     reg [2*dataWidth-1:0] bias;
+    reg[31:0] biasReg[0:0];
 
     reg weight_valid;
     reg mult_valid;
@@ -86,6 +87,24 @@ module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, si
             
         end
 
+    `ifdef pretrained
+        initial 
+        begin
+            $readmemb(biasFile, biasReg);
+        end
+        always @(posedge clk) begin
+        bias <= {biasReg[addr][dataWidth-1:0], {dataWidth{1'b0}}};
+        end
+    `else
+        always @(posedge clk)
+            begin
+                if(biasValid & (config_layer_num==layerNo) & (config_neuron_num==neuronNo))
+                begin
+                    bias <={biasValue[dataWidth-1:0], {dataWidth{1'b0}}};
+                end
+            end
+    `endif
+
     //delays the input
     always @(posedge clk) begin 
         myinputdelay <= myinput;
@@ -99,6 +118,13 @@ module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, si
 
     end
 
+    always @(posedge clk)begin 
+        if(rst|outvalid)
+            r_addr<=0;
+        else if(myinputValid)
+            r_addr<=r_addr+1;
+    end
+
     //multiplies the delayed input and the output of the weight memory
     always @(posedge clk) begin
         mul <= $signed(myinputdelay) * $signed(wout);
@@ -109,6 +135,7 @@ module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, si
         assign mux_valid = mult_valid;
         assign comboAdd = mul+sum;
         assign BiasAdd = bias+sum;
+        assign ren = myinputValid;
 
 
     always @(posedge clk) begin 
