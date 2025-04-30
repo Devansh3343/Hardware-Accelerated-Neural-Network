@@ -29,8 +29,16 @@ module top_layer_network #(parameter integer AXI_DATA_WIDTH = 32, parameter inte
     );
 
     wire reset;
+    wire [31:0]  config_layer_num;
+    wire [31:0]  config_neuron_num;
+    wire [31:0] weightValue;
+    wire [31:0] biasValue;
+    wire [31:0] out;
+    wire out_valid;
     wire weightValid;
     wire biasValid;
+
+    
 
 
     assign reset = ~axi_asyncrst;
@@ -43,12 +51,13 @@ module top_layer_network #(parameter integer AXI_DATA_WIDTH = 32, parameter inte
     reg[`numNeuronLayer1 * `dataWidth-1:0] hold_data1;
     reg [`dataWidth-1:0] out_data_1;
     reg data_out_valid_1;
+    
 
 
-    Layer1 #(.NN(`numNeuronLayer1), .numWeight(`numWeightLayer1), .dataWidth(`dataWidth), .layerNum(1), .sigmoidSize(`sigmoidSize), weightIntWidth(`weightIntWidth, .actType(`Layer1ActType))) l1(
+    Layer1 #(.NN(`numNeuronLayer1), .numWeight(`numWeightLayer1), .dataWidth(`dataWidth), .layerNum(1), .sigmoidSize(`sigmoidSize), .weightIntWidth(`weightIntWidth), .actType(`Layer1ActType)) l1(
         .clk(axi_clk),
         .rst(reset),
-        .weightValid(weight_valid),
+        .weightValid(weightValid),
         .biasValid(biasValid),
         .weightValue(weightValue),
         .biasValue(biasValue),
@@ -61,7 +70,7 @@ module top_layer_network #(parameter integer AXI_DATA_WIDTH = 32, parameter inte
     );
 
     reg state_1;
-    wire integer count_1;
+    integer count_1;
 
     always @(posedge axi_clk) begin
     
@@ -115,7 +124,7 @@ reg data_out_valid_2;
 Layer2 #(.NN(`numNeuronLayer2), .numWeight(`numWeightLayer2), .dataWidth(`dataWidth), .layerNum(2), .sigmoidSize(`sigmoidSize), .weightIntWidth(`weightIntWidth), .actType(`Layer2ActType)) l2(
     .clk(axi_clk),
     .rst(reset),
-    .weightValid(weight_valid),
+    .weightValid(weightValid),
     .biasValid(biasValid),
     .weightValue(weightValue),
     .biasValue(biasValue),
@@ -129,7 +138,7 @@ Layer2 #(.NN(`numNeuronLayer2), .numWeight(`numWeightLayer2), .dataWidth(`dataWi
 
 
     reg state_2;
-    wire integer count_2;
+    integer count_2;
 
     always @(posedge axi_clk) begin
     
@@ -156,7 +165,7 @@ Layer2 #(.NN(`numNeuronLayer2), .numWeight(`numWeightLayer2), .dataWidth(`dataWi
             end
 
             SEND: begin
-                out_data_2 <= hold_data2[`dataWidth-1:0];
+                out_data2 <= hold_data2[`dataWidth-1:0];
                 hold_data2 <= hold_data2>>`dataWidth;
                 count_2 <= count_2 +1;
                 data_out_valid_2 <= 1;
@@ -182,14 +191,14 @@ Layer2 #(.NN(`numNeuronLayer2), .numWeight(`numWeightLayer2), .dataWidth(`dataWi
 
 wire [`numNeuronLayer3-1:0] o3_valid;
 wire [`numNeuronLayer3 * `dataWidth-1:0] x3_out;
-reg [`numNeuronLayer3* `dataWidth-1:0] holdData3;
+reg [`numNeuronLayer3* `dataWidth-1:0] hold_data3;
 reg [`dataWidth-1:0] out_data3;
 reg data_out_valid_3;
 
 Layer3 #(.NN(`numNeuronLayer3), .numWeight(`numWeightLayer3), .dataWidth(`dataWidth), .layerNum(3), .sigmoidSize(`sigmoidSize), .weightIntWidth(`weightIntWidth), .actType(`Layer3ActType)) l3(
     .clk(axi_clk),
     .rst(reset),
-    .weightValid(weight_valid),
+    .weightValid(weightValid),
     .biasValid(biasValid),
     .weightValue(weightValue),
     .biasValue(biasValue),
@@ -204,7 +213,7 @@ Layer3 #(.NN(`numNeuronLayer3), .numWeight(`numWeightLayer3), .dataWidth(`dataWi
 
 
     reg state_3;
-    wire integer count_3;
+    integer count_3;
 
     always @(posedge axi_clk) begin
     
@@ -231,7 +240,7 @@ Layer3 #(.NN(`numNeuronLayer3), .numWeight(`numWeightLayer3), .dataWidth(`dataWi
             end
 
             SEND: begin
-                out_data_3 <= hold_data3[`dataWidth-1:0];
+                out_data3 <= hold_data3[`dataWidth-1:0];
                 hold_data3 <= hold_data3>>`dataWidth;
                 count_3 <= count_3 +1;
                 data_out_valid_3 <= 1;
@@ -252,30 +261,16 @@ Layer3 #(.NN(`numNeuronLayer3), .numWeight(`numWeightLayer3), .dataWidth(`dataWi
 
 
 
-reg [`numNeuronLayer4*`dataWidth-1:0] holdData_5;
-assign axi_rd_data = holdData_5[`dataWidth-1:0];
-
-always @(posedge s_axi_aclk)
-    begin
-        if (o4_valid[0] == 1'b1)
-            holdData_5 <= x4_out;
-        else if(axi_rd_en)
-        begin
-            holdData_5 <= holdData_5>>`dataWidth;
-        end
-    end
-
 
 wire [`numNeuronLayer4-1:0] o4_valid;
 wire [`numNeuronLayer4 * `dataWidth-1:0] x4_out;
-reg [`numNeuronLayer4* `dataWidth-1:0] holdData4;
 reg [`dataWidth-1:0] out_data4;
 reg data_out_valid_4;
 
 Layer4 #(.NN(`numNeuronLayer4), .numWeight(`numWeightLayer4), .dataWidth(`dataWidth), .layerNum(4), .sigmoidSize(`sigmoidSize), .weightIntWidth(`weightIntWidth), .actType(`Layer4ActType)) l4(
     .clk(axi_clk),
     .rst(reset),
-    .weightValid(weight_valid),
+    .weightValid(weightValid),
     .biasValid(biasValid),
     .weightValue(weightValue),
     .biasValue(biasValue),
@@ -289,7 +284,7 @@ Layer4 #(.NN(`numNeuronLayer4), .numWeight(`numWeightLayer4), .dataWidth(`dataWi
 
 
     reg state_4;
-    wire integer count_4;
+    integer count_4;
 
     always @(posedge axi_clk) begin
     
@@ -298,7 +293,7 @@ Layer4 #(.NN(`numNeuronLayer4), .numWeight(`numWeightLayer4), .dataWidth(`dataWi
         
         state_4 <= IDLE;
         count_4<=0;
-        data_out_valid_3<=0;
+        data_out_valid_4<=0;
         
     end
     else begin
@@ -316,7 +311,7 @@ Layer4 #(.NN(`numNeuronLayer4), .numWeight(`numWeightLayer4), .dataWidth(`dataWi
             end
 
             SEND: begin
-                out_data_4 <= hold_data4[`dataWidth-1:0];
+                out_data4 <= hold_data4[`dataWidth-1:0];
                 hold_data4 <= hold_data4>>`dataWidth;
                 count_4 <= count_4 +1;
                 data_out_valid_4 <= 1;
@@ -334,20 +329,16 @@ Layer4 #(.NN(`numNeuronLayer4), .numWeight(`numWeightLayer4), .dataWidth(`dataWi
     end
     end
 
-reg [`numNeuronLayer4*`dataWidth-1:0] hold_data_5;
-assign axi_rd_data = hold_data_5[`dataWidth-1:0];
-
-always @(posedge s_axi_aclk)
-    begin
-        if (o4_valid[0] == 1'b1)
-            hold_data_5 <= x4_out;
-        else if(axi_rd_en)
-        begin
-            hold_data_5 <= hold_data_5>>`dataWidth;
-        end
-    end
 
 
+maxFinder #(.numInput(`numNeuronLayer4),.inputWidth(`dataWidth))
+    mFind(
+        .i_clk(s_axi_aclk),
+        .i_data(x4_out),
+        .i_valid(o4_valid),
+        .o_data(out),
+        .o_data_valid(out_valid)
+    );
 
 
 
