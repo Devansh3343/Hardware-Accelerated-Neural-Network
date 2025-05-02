@@ -1,8 +1,8 @@
-import mnist_loader
+import mnist_Loader
 import network2
 import json
 
-training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
+training_data, validation_data, test_data = mnist_Loader.load_data_wrapper()
 net = network2.Network([784, 30, 30, 10,10])#change the number of layers or number of neurons in each layer here
 validation_data = list(validation_data)
 training_data = list(training_data)
