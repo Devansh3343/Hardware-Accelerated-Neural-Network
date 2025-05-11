@@ -24,7 +24,7 @@ module Sigmoid_ROM #(parameter inWidth =10, dataWidth=16)
     (
     input clk,
     input [inWidth-1:0] x,
-    output [inWidth-1:0] out
+    output [dataWidth-1:0] out
     );
     
     reg [dataWidth-1:0] mem [2**inWidth-1:0];

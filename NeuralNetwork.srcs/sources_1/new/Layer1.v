@@ -36,7 +36,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
     output [NN*dataWidth-1:0] x_out
     );
 
-    Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(0), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_0(
+    Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(0), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_0.mif"), .weightFile("w_1_0.mif")) n_0(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -51,7 +51,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
         .outvalid(o_valid[0])
 
     );
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(1), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_1(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(1), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_1.mif"), .weightFile("w_1_1.mif")) n_1(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -67,7 +67,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(2), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_2(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(2), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_2.mif"), .weightFile("w_1_2.mif")) n_2(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -83,7 +83,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(3), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_3(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(3), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_3.mif"), .weightFile("w_1_3.mif")) n_3(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -99,7 +99,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(4), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_4(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(4), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_4.mif"), .weightFile("w_1_4.mif")) n_4(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -115,7 +115,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(5), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_5(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(5), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_5.mif"), .weightFile("w_1_5.mif")) n_5(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -131,7 +131,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(6), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_6(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(6), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_6.mif"), .weightFile("w_1_6.mif")) n_6(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -147,7 +147,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(7), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_7(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(7), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_7.mif"), .weightFile("w_1_7.mif")) n_7(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -163,7 +163,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(8), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_8(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(8), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_8.mif"), .weightFile("w_1_8.mif")) n_8(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -179,7 +179,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(9), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_9(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(9), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_9.mif"), .weightFile("w_1_9.mif")) n_9(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -195,7 +195,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(10), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_10(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(10), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_10.mif"), .weightFile("w_1_10.mif")) n_10(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -211,7 +211,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(11), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_11(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(11), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_11.mif"), .weightFile("w_1_11.mif")) n_11(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -227,7 +227,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(12), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_12(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(12), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_12.mif"), .weightFile("w_1_12.mif")) n_12(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -243,7 +243,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(13), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_13(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(13), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_13.mif"), .weightFile("w_1_13.mif")) n_13(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -259,7 +259,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(14), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_14(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(14), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_14.mif"), .weightFile("w_1_14.mif")) n_14(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -275,7 +275,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(15), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_15(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(15), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_15.mif"), .weightFile("w_1_15.mif")) n_15(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -291,7 +291,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(16), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_16(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(16), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_16.mif"), .weightFile("w_1_16.mif")) n_16(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -307,7 +307,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(17), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_17(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(17), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_17.mif"), .weightFile("w_1_17.mif")) n_17(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -323,7 +323,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(18), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_18(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(18), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_18.mif"), .weightFile("w_1_18.mif")) n_18(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -339,7 +339,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(19), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_19(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(19), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_19.mif"), .weightFile("w_1_19.mif")) n_19(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -355,7 +355,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(20), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_20(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(20), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_20.mif"), .weightFile("w_1_20.mif")) n_20(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -371,7 +371,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(21), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_21(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(21), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_21.mif"), .weightFile("w_1_21.mif")) n_21(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -387,7 +387,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(22), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_22(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(22), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_22.mif"), .weightFile("w_1_22.mif")) n_22(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -403,7 +403,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(23), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_23(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(23), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_23.mif"), .weightFile("w_1_23.mif")) n_23(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -419,7 +419,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(24), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_24(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(24), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_24.mif"), .weightFile("w_1_24.mif")) n_24(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -435,7 +435,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(25), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_25(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(25), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_25.mif"), .weightFile("w_1_25.mif")) n_25(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -451,7 +451,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(26), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_26(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(26), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_26.mif"), .weightFile("w_1_26.mif")) n_26(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -467,7 +467,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(27), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_27(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(27), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_27.mif"), .weightFile("w_1_27.mif")) n_27(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -483,7 +483,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(28), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_28(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(28), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_28.mif"), .weightFile("w_1_28.mif")) n_28(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),
@@ -499,7 +499,7 @@ module Layer1 #(parameter NN=30, numWeight=784, dataWidth=16, layerNum=1, sigmoi
 
     );
 
-        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(29), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile(""), .WeightFile("")) n_29(
+        Neuron #(.numWeight(numWeight), .layerNo(layerNum), .neuronNo(29), .dataWidth(dataWidth), .sigmoidSize(sigmoidSize), .weightIntWidth(weightIntWidth), .actType(actType), .biasFile("b_1_29.mif"), .weightFile("w_1_29.mif")) n_29(
         .clk(clk),
         .rst(rst),
         .myinput(x_in),

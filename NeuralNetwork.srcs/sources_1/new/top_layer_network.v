@@ -14,7 +14,6 @@
 // Dependencies: 
 // 
 // Revision:
-// Revision 0.02 - Variable-name fixes and missing signals added
 // Additional Comments:
 //
 //////////////////////////////////////////////////////////////////////////////////
@@ -74,11 +73,15 @@ module top_layer_network #(
 
     wire out_valid;
     wire [31:0] out;
+    
+  
 
     assign intr = out_valid;
 
     //instantiate axilite wrapper
     NN_AXILite_Wrapper_slave_lite_v1_0_S00_AXI #(.C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH), .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)) axiLiteWrapper(
+//    axi_lite_wrapper #(.C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH), .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)) axiLiteWrapper(
+
     .S_AXI_ACLK(axi_clk),
     .S_AXI_ARESETN(axi_asyncrst),
     .S_AXI_AWADDR(S_AXI_AWADDR),
@@ -122,8 +125,8 @@ module top_layer_network #(
     assign reset = ~axi_asyncrst|softReset;
 
     // State constants
-    localparam IDLE = 1'b0,
-               SEND = 1'b1;
+    localparam IDLE = 'd0,
+               SEND = 'd1;
 
     // -----------------------------------------------------------------------
     // Layer 1 instantiation + pipeline FSM
@@ -163,13 +166,13 @@ module top_layer_network #(
         if (reset) begin
             state_1          <= IDLE;
             count_1          <= 0;
-            data_out_valid_1 <= 1'b0;
+            data_out_valid_1 <= 0;
         end else begin
             case (state_1)
                 IDLE: begin
                     count_1          <= 0;
                     data_out_valid_1 <= 1'b0;
-                    if (o1_valid[0]) begin
+                    if (o1_valid[0] == 1'b1) begin
                         hold_data1 <= x1_out;
                         state_1    <= SEND;
                     end
@@ -178,10 +181,10 @@ module top_layer_network #(
                     out_data_1        <= hold_data1[`dataWidth-1:0];
                     hold_data1        <= hold_data1 >> `dataWidth;
                     count_1           <= count_1 + 1;
-                    data_out_valid_1  <= 1'b1;
+                    data_out_valid_1  <= 1;
                     if (count_1 == `numNeuronLayer1) begin
                         state_1          <= IDLE;
-                        data_out_valid_1 <= 1'b0;
+                        data_out_valid_1 <= 0;
                     end
                 end
             endcase
@@ -226,13 +229,13 @@ module top_layer_network #(
         if (reset) begin
             state_2          <= IDLE;
             count_2          <= 0;
-            data_out_valid_2 <= 1'b0;
+            data_out_valid_2 <= 0;
         end else begin
             case (state_2)
                 IDLE: begin
                     count_2          <= 0;
-                    data_out_valid_2 <= 1'b0;
-                    if (o2_valid[0]) begin
+                    data_out_valid_2 <= 0;
+                    if (o2_valid[0] == 1'b1) begin
                         hold_data2 <= x2_out;
                         state_2    <= SEND;
                     end
@@ -241,10 +244,10 @@ module top_layer_network #(
                     out_data_2        <= hold_data2[`dataWidth-1:0];
                     hold_data2        <= hold_data2 >> `dataWidth;
                     count_2           <= count_2 + 1;
-                    data_out_valid_2  <= 1'b1;
+                    data_out_valid_2  <= 1;
                     if (count_2 == `numNeuronLayer2) begin
                         state_2          <= IDLE;
-                        data_out_valid_2 <= 1'b0;
+                        data_out_valid_2 <= 0;
                     end
                 end
             endcase
@@ -289,13 +292,13 @@ module top_layer_network #(
         if (reset) begin
             state_3          <= IDLE;
             count_3          <= 0;
-            data_out_valid_3 <= 1'b0;
+            data_out_valid_3 <= 0;
         end else begin
             case (state_3)
                 IDLE: begin
                     count_3          <= 0;
-                    data_out_valid_3 <= 1'b0;
-                    if (o3_valid[0]) begin
+                    data_out_valid_3 <= 0;
+                    if (o3_valid[0]==1'b1) begin
                         hold_data3 <= x3_out;
                         state_3    <= SEND;
                     end
@@ -304,10 +307,10 @@ module top_layer_network #(
                     out_data_3        <= hold_data3[`dataWidth-1:0];
                     hold_data3        <= hold_data3 >> `dataWidth;
                     count_3           <= count_3 + 1;
-                    data_out_valid_3  <= 1'b1;
+                    data_out_valid_3  <= 1;
                     if (count_3 == `numNeuronLayer3) begin
                         state_3          <= IDLE;
-                        data_out_valid_3 <= 1'b0;
+                        data_out_valid_3 <= 0;
                     end
                 end
             endcase
@@ -352,13 +355,13 @@ module top_layer_network #(
         if (reset) begin
             state_4          <= IDLE;
             count_4          <= 0;
-            data_out_valid_4 <= 1'b0;
+            data_out_valid_4 <= 0;
         end else begin
             case (state_4)
                 IDLE: begin
                     count_4          <= 0;
-                    data_out_valid_4 <= 1'b0;
-                    if (o4_valid[0]) begin
+                    data_out_valid_4 <= 0;
+                    if (o4_valid[0]==1'b1) begin
                         hold_data4 <= x4_out;
                         state_4    <= SEND;
                     end
@@ -367,21 +370,32 @@ module top_layer_network #(
                     out_data_4        <= hold_data4[`dataWidth-1:0];
                     hold_data4        <= hold_data4 >> `dataWidth;
                     count_4           <= count_4 + 1;
-                    data_out_valid_4  <= 1'b1;
+                    data_out_valid_4  <= 1;
                     if (count_4 == `numNeuronLayer4) begin
                         state_4          <= IDLE;
-                        data_out_valid_4 <= 1'b0;
+                        data_out_valid_4 <= 0;
                     end
                 end
             endcase
         end
     end
+    
+    reg [`numNeuronLayer4*`dataWidth-1:0] hold_data5;
+
+    always @(posedge axi_clk) begin
+        if(o4_valid[0] == 1'b1)
+            hold_data5 <= x4_out;
+        else if(axi_rd_en)
+        hold_data5 <= hold_data5>>`dataWidth;
+    end
+    
+        assign axi_rd_data = hold_data5[`dataWidth-1:0];
+    
 
     // -----------------------------------------------------------------------
     // Find max and output
     // -----------------------------------------------------------------------
-    wire [ `dataWidth-1:0] final_out;
-    wire                   final_out_valid;
+
 
     maxFinder #(
         .numInput  (`numNeuronLayer4),
@@ -390,8 +404,8 @@ module top_layer_network #(
         .i_clk       (axi_clk),       // fixed to use axi_clk
         .i_data      (x4_out),
         .i_valid     (o4_valid),
-        .o_data      (final_out),
-        .o_data_valid(final_out_valid)
+        .o_data      (out),
+        .o_data_valid(out_valid)
     );
 
 

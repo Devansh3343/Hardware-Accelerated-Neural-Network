@@ -19,8 +19,10 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+`define DEBUG
+
 `include "include.v"
-module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, sigmoidSize=5, weightIntWidth=4, actType="sigmoid", biasFile="b_1_15.mif", weightFile="w_1_15.mif")(
+module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, sigmoidSize=5, weightIntWidth=1, actType="relu", biasFile="", weightFile="")(
     input clk,
     input rst,
     input [dataWidth-1:0] myinput,
@@ -142,6 +144,21 @@ module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, si
         if(rst|outvalid)
             sum <= 0;
         
+        else if((r_addr == numWeight) & muxValid_f)
+        begin
+            if(!bias[2*dataWidth-1] & !sum[2*dataWidth-1] & BiasAdd[2*dataWidth-1]) begin
+                sum[2*dataWidth-1] <= 1'b0;
+                sum[2*dataWidth-2:0] <= {2*dataWidth-1{1'b1}};
+            end
+            else if(bias[2*dataWidth-1] & sum[2*dataWidth-1] & !BiasAdd[2*dataWidth-1]) begin
+                sum[2*dataWidth-1] <= 1'b1;
+                sum[2*dataWidth-2:0] <= {2*dataWidth-1{1'b0}};
+            end
+            else
+                sum<=BiasAdd;
+                
+        end
+
         else if(mux_valid)
         begin
             if(!mul[2*dataWidth-1] & !sum[2*dataWidth-1] & comboAdd[2*dataWidth-1]) begin //overflow Handling aka when you add 2 positive numbers and the result is negative something went wrong
@@ -154,20 +171,6 @@ module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, si
         end
         else
             sum <=comboAdd;
-        end
-        else if((r_addr == numWeight) & muxValid_f)
-        begin
-            if(!bias[2*dataWidth-1] & !sum[2*dataWidth-1] & BiasAdd[2*dataWidth-1]) begin
-                sum[2*dataWidth-1] <= 1'b0;
-                sum[2*dataWidth-2:0] <= {2*dataWidth-1{1'b1}};
-            end
-            else if(bias[2*dataWidth-1] & sum[2*dataWidth-1] & !BiasAdd[2*dataWidth-1]) begin
-                sum[2*dataWidth-1] <= 1'b1;
-                sum[2*dataWidth-2:0] <= {2*dataWidth-2{1'b0}};
-            end
-            else
-                sum<=BiasAdd;
-                
         end
     end
 
@@ -191,7 +194,7 @@ module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, si
         begin:sigmoidinst
             Sigmoid_ROM #(.inWidth(sigmoidSize), .dataWidth(dataWidth)) s1 (
                 .clk(clk),
-                .x(sum),
+                .x(sum[2*dataWidth-1-:sigmoidSize]),
                 .out(out)
             );
         end
@@ -206,4 +209,13 @@ module Neuron #(parameter layerNo=0, neuronNo=0, numWeight=784, dataWidth=16, si
         end
 
     endgenerate
+
+    `ifdef DEBUG
+    always @(posedge clk) begin
+        if(outvalid)
+            $display(neuronNo,,,,"%b", out);
+    end
+    `endif
+
+    
 endmodule

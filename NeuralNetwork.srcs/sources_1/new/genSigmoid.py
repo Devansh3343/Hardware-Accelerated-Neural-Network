@@ -38,4 +38,4 @@ def sigmoid(x):
         
         
 if __name__ == "__main__":
-    genSigContent(dataWidth=16,sigmoidSize=5,weightIntSize=4,inputIntSize=1)
+    genSigContent(dataWidth=16,sigmoidSize=10,weightIntSize=4,inputIntSize=1)
